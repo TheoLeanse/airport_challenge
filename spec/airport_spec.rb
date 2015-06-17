@@ -12,18 +12,19 @@ require 'airport'
 # If the airport is full then no planes can land
 
 describe Airport do
+  # subject { Airport.new double :weatherman, stormy?: true, sunny?: true }
+  let(:plane) { double :plane, land: nil, take_off: nil }
 
   describe 'take off' do
+    before { subject.land plane }
     it 'instructs a plane to take off' do
-      expect(subject).to respond_to :fly_away
+      expect(plane).to receive(:take_off)
+      subject.take_off
     end
 
     it 'releases a plane' do
-      # plane = double :plane
-      # allow(plane).to receive(:land)
-      # allow(plane).to receive(:fly_away)
-      # subject.land(plane)
-      expect((subject.fly_away).class).to eq(String)
+      subject.take_off
+      expect(subject).to be_empty
     end
   end
 
@@ -34,14 +35,16 @@ describe Airport do
     end
 
     it 'receives a plane' do
-
     end
-
   end
+
 
   describe 'traffic control' do
     context 'when airport is full' do
-      xit 'does not allow a plane to land'
+      it 'does not allow a plane to land' do
+        subject.capacity.times { subject.land double :plane, land: nil }
+        expect { subject.land double :plane, land: nil }.to raise_error "Airport full"
+      end
     end
 
     # Include a weather condition.
