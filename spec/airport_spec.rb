@@ -14,15 +14,29 @@ require 'airport'
 describe Airport do
 
   describe 'take off' do
-    xit 'instructs a plane to take off'
+    it 'instructs a plane to take off' do
+      expect(subject).to respond_to :fly_away
+    end
 
-    xit 'releases a plane'
+    it 'releases a plane' do
+      # plane = double :plane
+      # allow(plane).to receive(:land)
+      # allow(plane).to receive(:fly_away)
+      # subject.land(plane)
+      expect((subject.fly_away).class).to eq(String)
+    end
   end
 
   describe 'landing' do
-    xit 'instructs a plane to land'
+    it 'instructs a plane to land' do
+      #plane = double :plane
+      expect(subject).to respond_to(:land).with(1).argument
+    end
 
-    xit 'receives a plane'
+    it 'receives a plane' do
+
+    end
+
   end
 
   describe 'traffic control' do
